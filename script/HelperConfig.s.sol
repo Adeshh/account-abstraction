@@ -13,7 +13,7 @@ contract HelperConfig is Script {
     }
 
     NetworkConfig public activeNetworkConfig;
-    address constant ANVIL_DEFAULT_ACCOUNT = 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38;
+    address constant ANVIL_DEFAULT_ACCOUNT = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
     address constant BURNER_WALLET = 0x5d6eD63EA4aDcecc5B7a622f6f2D5D345e55b843;
     //mapping(uint256 chainId => NetworkConfig) public networkConfigs;
 
@@ -49,5 +49,9 @@ contract HelperConfig is Script {
         EntryPoint entryPoint = new EntryPoint();
         vm.stopBroadcast();
         return NetworkConfig({entryPoint: address(entryPoint), account: ANVIL_DEFAULT_ACCOUNT});
+    }
+
+    function getActiveNetworkConfig() public view returns (NetworkConfig memory) {
+        return activeNetworkConfig;
     }
 }

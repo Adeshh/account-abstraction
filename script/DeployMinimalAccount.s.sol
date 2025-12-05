@@ -10,9 +10,9 @@ contract DeployMinimalAccount is Script {
         HelperConfig config = new HelperConfig();
         (address entryPoint, address account) = config.activeNetworkConfig();
 
-        vm.startBroadcast();
+        vm.startBroadcast(account);
         MinimalAccount minimalAccount = new MinimalAccount(entryPoint);
-        minimalAccount.transferOwnership(msg.sender);
+        minimalAccount.transferOwnership(account);
         vm.stopBroadcast();
         return (minimalAccount, config);
     }
