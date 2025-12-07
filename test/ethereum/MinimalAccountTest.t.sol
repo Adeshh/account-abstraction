@@ -10,6 +10,11 @@ import {SendPackedUserOp, PackedUserOperation, IEntryPoint} from "script/SendPac
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 
+/**
+ * @title MinimalAccountTest
+ * @notice Test suite for MinimalAccount ERC-4337 implementation
+ * @dev Tests cover direct execution, access control, signature validation, and EntryPoint integration
+ */
 contract MinimalAccountTest is Test {
     using MessageHashUtils for bytes32;
     MinimalAccount public minimalAccount;

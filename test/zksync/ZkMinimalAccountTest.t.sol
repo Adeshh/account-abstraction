@@ -16,19 +16,23 @@ import {
 } from "lib/foundry-era-contracts/src/system-contracts/contracts/interfaces/IAccount.sol";
 
 /**
- * msg.sender is bootloader
- * phase 1: validate transaction
- * 1. User sends the transaction to zksync API client
- * 2. zkSync API client Checks if nonce is unique by querying NonceHolder contract
- * 3. zkSync API client checks if the transaction is valid by calling validateTransaction which must update the nonce
- * 4. zkSync API client checks if nonce is updated
- * 5. zkSync API client calls payForTransaction or prepareForPaymaster and validateAndPayForPaymasterTransaction
- * 6. zkSync API client verifies that bootloader received the required funds.
+ * @title ZkMinimalAccountTest
+ * @notice Test suite for ZkMinimalAccount zkSync native AA implementation
+ * @dev Tests cover transaction validation, execution, and system contract interactions.
  *
- * phase 2: execute transaction
- * 7. The zksync Api client pass the validated transaction to sequencer
- * 8. The main node calls executeTransaction to execute the transaction
- * 9. If paymaster is used, the postTransaction function is called by the paymaster to process the transaction
+ * zkSync transaction flow:
+ * Phase 1 - Validation:
+ * 1. User sends transaction to zkSync API
+ * 2. API checks nonce uniqueness via NonceHolder contract
+ * 3. API calls validateTransaction (must update nonce)
+ * 4. API verifies nonce was incremented
+ * 5. API calls payForTransaction or prepareForPaymaster
+ * 6. API verifies bootloader received funds
+ *
+ * Phase 2 - Execution:
+ * 7. API passes validated transaction to sequencer
+ * 8. Sequencer calls executeTransaction
+ * 9. Paymaster postTransaction called if applicable
  */
 contract ZkMinimalAccountTest is Test {
     ZkMinimalAccount public minimalAccount;
